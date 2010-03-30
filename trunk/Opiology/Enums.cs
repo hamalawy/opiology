@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Opiometrics
 {
-    public enum ROA
+    public enum Roa
     {
         Oral,
         Inhalable,
@@ -18,9 +18,13 @@ namespace Opiometrics
     }
     public enum PillType
     {
-        Oxycodone,
+        Codeine,
+        Fentanyl,
         Hydrocodone,
-        Morphine
+        Hydromorphone,
+        Morphine,
+        Oxycodone,
+        Oxymorphone
     }
     public enum PillShape
     {

@@ -7,35 +7,61 @@ namespace Opiometrics
 {
    public class Drug
     {
-            public String Name;
-            public List<ROA> RoutesOfAdministration = new List<ROA>();
-            public int LD50; //LD50 in milligrams
-            public int NaiveOralDose;
-            public int NaiveIVDose;
-            public String Description;
-
+            private String name;
+            private List<Roa> routesOfAdministration = new List<Roa>();
+            private int lD50; //LD50 in milligrams
+            private int naiveOralDose;
+            private int naiveIVDose;
+            private String description;
+            
+			public string Name {
+				get { return name; }
+				set { name = value; }
+			}
+			public List<Roa> RoutesOfAdministration {
+				get { return routesOfAdministration; }
+			}
+            public int LD50 {
+				get { return lD50; }
+				set { lD50 = value; }
+			}
+			public int NaiveOralDose {
+				get { return naiveOralDose; }
+				set { naiveOralDose = value; }
+			}
+            
+			public int NaiveIVDose {
+				get { return naiveIVDose; }
+				set { naiveIVDose = value; }
+			}
+			public string Description {
+				get { return description; }
+				set { description = value; }
+			}
+            
+            
             #region Constructors
 
             public Drug( String name)
             {
-                this.Name = name;
+                this.name = name;
             }
 
-            public Dictionary<ROA, bool> GetROAInfo()
+            public Dictionary<Roa, bool> GetRoaInfo()
             {
-                Dictionary<ROA, bool> roaInfo = new Dictionary<ROA, bool>();
-                foreach(ROA r in Enum.GetValues(typeof(ROA)))
+                Dictionary<Roa, bool> RoaInfo = new Dictionary<Roa, bool>();
+                foreach(Roa r in Enum.GetValues(typeof(Roa)))
                 {
-                    if (RoutesOfAdministration.Contains(r))
+                    if (routesOfAdministration.Contains(r))
                     {
-                        roaInfo.Add(r, true);
+                        RoaInfo.Add(r, true);
                     }
                     else
                     {
-                        roaInfo.Add(r, false);
+                        RoaInfo.Add(r, false);
                     }
                 }
-                return roaInfo;
+                return RoaInfo;
             }
             #endregion
 

@@ -34,6 +34,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.ResultLabel = new System.Windows.Forms.Label();
+            this.ConversionResultLabel = new System.Windows.Forms.Label();
             this.ConversionToTextBox = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.ConvertToComboBox = new System.Windows.Forms.ComboBox();
@@ -70,14 +71,13 @@
             this.ManufacturerLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.FilterComboBox = new System.Windows.Forms.ComboBox();
             this.ImprintSearchTextBox = new System.Windows.Forms.TextBox();
             this.ImprintListBox = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.ConversionResultLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -160,6 +160,14 @@
             this.ResultLabel.Size = new System.Drawing.Size(5, 13);
             this.ResultLabel.TabIndex = 8;
             this.ResultLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ConversionResultLabel
+            // 
+            this.ConversionResultLabel.AutoSize = true;
+            this.ConversionResultLabel.Location = new System.Drawing.Point(7, 123);
+            this.ConversionResultLabel.Name = "ConversionResultLabel";
+            this.ConversionResultLabel.Size = new System.Drawing.Size(0, 13);
+            this.ConversionResultLabel.TabIndex = 7;
             // 
             // ConversionToTextBox
             // 
@@ -528,7 +536,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.FilterComboBox);
             this.groupBox2.Controls.Add(this.ImprintSearchTextBox);
             this.groupBox2.Controls.Add(this.ImprintListBox);
             this.groupBox2.Location = new System.Drawing.Point(18, 14);
@@ -547,18 +555,21 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Type Filter";
             // 
-            // comboBox1
+            // FilterComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(32, 58);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBox1.Size = new System.Drawing.Size(102, 21);
-            this.comboBox1.TabIndex = 6;
+            this.FilterComboBox.DisplayMember = "dd";
+            this.FilterComboBox.FormattingEnabled = true;
+            this.FilterComboBox.Location = new System.Drawing.Point(18, 58);
+            this.FilterComboBox.Name = "FilterComboBox";
+            this.FilterComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.FilterComboBox.Size = new System.Drawing.Size(102, 21);
+            this.FilterComboBox.TabIndex = 6;
+            this.FilterComboBox.SelectedIndexChanged += new System.EventHandler(this.FilterComboBox_SelectedIndexChanged);
+            this.FilterComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilterComboBox_KeyDown);
             // 
             // ImprintSearchTextBox
             // 
-            this.ImprintSearchTextBox.Location = new System.Drawing.Point(32, 19);
+            this.ImprintSearchTextBox.Location = new System.Drawing.Point(17, 19);
             this.ImprintSearchTextBox.Name = "ImprintSearchTextBox";
             this.ImprintSearchTextBox.Size = new System.Drawing.Size(103, 20);
             this.ImprintSearchTextBox.TabIndex = 5;
@@ -601,14 +612,6 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Law";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // ConversionResultLabel
-            // 
-            this.ConversionResultLabel.AutoSize = true;
-            this.ConversionResultLabel.Location = new System.Drawing.Point(7, 123);
-            this.ConversionResultLabel.Name = "ConversionResultLabel";
-            this.ConversionResultLabel.Size = new System.Drawing.Size(0, 13);
-            this.ConversionResultLabel.TabIndex = 7;
             // 
             // Form1
             // 
@@ -689,7 +692,7 @@
         private System.Windows.Forms.Label FromUnitLabel;
         private System.Windows.Forms.ComboBox ConvertFromComboBox;
         private System.Windows.Forms.ComboBox ConvertToComboBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox FilterComboBox;
         private System.Windows.Forms.Label ResultLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label ConversionResultLabel;

@@ -11,7 +11,7 @@ namespace Opiometrics
     {
 
         public Dictionary<String, Imprint> imprintDictionary = new Dictionary<String, Imprint>();
-
+        public List<String> typeList = new List<String>();
         public void GetItemInfo(string fileName)
         {
             XmlDocument document = new XmlDocument();
@@ -88,9 +88,14 @@ namespace Opiometrics
                 }
 
                 imprintDictionary.Add(d.imprint, d);
-                
+
+                if (!typeList.Contains(d.Type.ToString()))
+                {
+                    typeList.Add(d.Type.ToString()); //If the typelist doesn't already contain the type, then add it
+                }
             }
 
+            typeList.Sort((x, y) => String.Compare(x, y)); //Sort typelist alphabetically for use in the GUI
         }
     }
 }

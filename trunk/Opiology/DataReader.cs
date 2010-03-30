@@ -9,7 +9,12 @@ namespace Opiometrics
     public class DataReader
     {
 
-        public Dictionary<String, Drug> drugDictionary = new Dictionary<String, Drug>();
+        private Dictionary<String, Drug> drugDictionary = new Dictionary<String, Drug>();
+        
+		public Dictionary<string, Drug> DrugDictionary {
+			get { return drugDictionary; }
+			set { drugDictionary = value; }
+		}
 
         public void GetItemInfo(string fileName)
         {
@@ -42,38 +47,38 @@ namespace Opiometrics
                                 string value = attrNode.Attributes["value"].InnerText;
                                 switch (attrNode.Attributes["key"].InnerText.ToLower())
                                 {
-                                #region ROAParse
+                                #region RoaParse
                                    case "oral":
                                             if(value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Oral);
+                                                d.RoutesOfAdministration.Add(Roa.Oral);
                                         break;
                                     case "intravenous":
                                             if(value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Intravenous);
+                                                d.RoutesOfAdministration.Add(Roa.Intravenous);
                                         break;
                                     case "intramuscular":
                                             if(value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Intramuscular);
+                                                d.RoutesOfAdministration.Add(Roa.Intramuscular);
                                         break;
                                     case "subcutaneous":
                                             if(value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Subcutaneous);
+                                                d.RoutesOfAdministration.Add(Roa.Subcutaneous);
                                         break;
                                     case "inhalable":
                                             if(value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Inhalable);
+                                                d.RoutesOfAdministration.Add(Roa.Inhalable);
                                             break;
                                     case "insufflatable":
                                             if (value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Insufflatable);
+                                                d.RoutesOfAdministration.Add(Roa.Insufflatable);
                                             break;
                                     case "sublingual":
                                             if (value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Sublingual);
+                                                d.RoutesOfAdministration.Add(Roa.Sublingual);
                                             break;
                                     case "rectal":
                                             if(value == "1")
-                                                d.RoutesOfAdministration.Add(ROA.Rectal);
+                                                d.RoutesOfAdministration.Add(Roa.Rectal);
                                         break;
                                  #endregion
                                     case "ld50":

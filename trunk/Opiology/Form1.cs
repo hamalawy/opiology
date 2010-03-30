@@ -21,6 +21,7 @@ namespace Opiometrics
         OpioidConverter oConverter = new OpioidConverter();
         private OpioidConverter.Drug convertFrom = OpioidConverter.Drug.Morphine;
         private OpioidConverter.Drug convertTo = OpioidConverter.Drug.Morphine;
+        ImprintReader imprintReader;
         public Form1()
         {
             InitializeComponent();
@@ -39,6 +40,8 @@ namespace Opiometrics
             LoadImprints(Path.Combine(fileDirectory, "imprints.xml"));
             LoadItems(Path.Combine(fileDirectory, "items.xml"));
 
+            PopulateTypeComboBox();
+
             ConvertFromComboBox.Items.AddRange(Enum.GetNames(typeof(OpioidConverter.Drug)));
             ConvertToComboBox.Items.AddRange(Enum.GetNames(typeof(OpioidConverter.Drug)));
             ConvertFromComboBox.SelectedIndex = 0;
@@ -50,7 +53,7 @@ namespace Opiometrics
         {
             DataReader dataReader = new DataReader();
             dataReader.GetItemInfo(filename);
-            drugDict = dataReader.drugDictionary;
+            drugDict = dataReader.DrugDictionary;
 
         }
         private void SelectDrug(String drugname)
@@ -59,7 +62,7 @@ namespace Opiometrics
             {
                 Drug d = drugDict[drugname];
                 NameLabel.Text = d.Name;
-                PopulateROA(d.Name);
+                PopulateRoa(d.Name);
                 DescriptionTextBox.Text = d.Description;
                 LD50Label.Text = "LD50: " + d.LD50.ToString() + "mg/kg";
                 DosageOralLabel.Text = "Naive Oral: " + d.NaiveOralDose.ToString() + "mg";
@@ -69,98 +72,20 @@ namespace Opiometrics
                 drugPicture.BackgroundImage = b;
             }
         }
-        private void PopulateROA(String drugname)
+        private void PopulateRoa(String drugname)
         {
             if(drugDict.ContainsKey(drugname))
             {
-            Dictionary<ROA, bool> roaInfo = drugDict["Morphine"].GetROAInfo();
-            foreach (KeyValuePair<ROA, bool> kvp in roaInfo)
-            {
-                switch (kvp.Key)
+                Dictionary<Roa, bool> roaInfo = drugDict[drugname].GetRoaInfo();
+                
+                Dictionary<Roa, Label> labelDictionary = new Dictionary<Roa, Label>() { {Roa.Inhalable, ROAInhalableLabel},
+                {Roa.Insufflatable, ROAInsufflatableLabel}, {Roa.Intramuscular, ROAIMLabel}, {Roa.Intravenous, ROAIVLabel},
+                {Roa.Oral, ROAOralLabel}, {Roa.Rectal, ROARectalLabel}, {Roa.Subcutaneous, ROASCLabel}, {Roa.Sublingual, ROASublingualLabel}};
+                
+                foreach (KeyValuePair<Roa, bool> roaKvp in roaInfo)
                 {
-                    case ROA.Inhalable:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROAInhalableLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROAInhalableLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Insufflatable:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROAInsufflatableLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROAInsufflatableLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Intramuscular:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROAIMLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROAIMLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Intravenous:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROAIVLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROAIVLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Oral:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROAOralLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROAOralLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Rectal:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROARectalLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROARectalLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Subcutaneous:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROASCLabel.ForeColor = Color.LimeGreen;
-                        }
-                        else
-                        {
-                            ROASCLabel.ForeColor = Color.Red;
-                        }
-                        break;
-                    case ROA.Sublingual:
-                        if (roaInfo[kvp.Key] == true)
-                        {
-                            ROASublingualLabel.ForeColor = Color.Red;
-                        }
-                        else
-                        {
-                            ROASublingualLabel.ForeColor = Color.Red;
-                        }
-                        break;
-
+                    labelDictionary[roaKvp.Key].ForeColor = roaKvp.Value ? Color.LimeGreen : Color.Red;
                 }
-            }
         }
         }
         private void topicsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -174,32 +99,16 @@ namespace Opiometrics
         //TODO: Use LINQ for imprint and imprint search filtering
         public void LoadImprints(string filename)
         {
-            ImprintReader imprintReader = new ImprintReader();
+            imprintReader = new ImprintReader();
             imprintReader.GetItemInfo(filename);
             imprintDict = imprintReader.imprintDictionary;
 
         }
-        private void SelectImprint(String imprintId)
+        public void PopulateTypeComboBox()
         {
-            if (imprintDict.ContainsKey(imprintId))
-            {
-                Imprint i = imprintDict[imprintId];
-                ManufacturerLabel.Text = "Manufacturer: " + i.Manufacturer;
-                TypeLabel.Text = "Type: " + i.Type.ToString();
-                ImprintLabel.Text = "Imprint: " + i.imprint;
-                StrengthLabel.Text = "Strength: " + i.Strength + "mg";
-                ShapeLabel.Text = "Shape: " + i.Shape.ToString().ToLower();
-                ColorLabel.Text = "Color: " + i.Color;
-                DescriptionLabel.Text = "Description: " + i.Description;
-                pictureBox1.BackgroundImage = i.PillImage;
-            }
+            FilterComboBox.Items.AddRange(imprintReader.typeList.ToArray());
         }
 
-        private void ImprintListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SelectImprint((String)ImprintListBox.Items[ImprintListBox.SelectedIndex]);
-        }
-        
         private Dictionary<String, Imprint> SearchPills(String searchstring)
         {
             String sanitizedString = searchstring.ToLower();
@@ -222,6 +131,31 @@ namespace Opiometrics
             }
         }
 
+        private void SelectImprint(String imprintId)
+        {
+            if (imprintDict.ContainsKey(imprintId))
+            {
+                Imprint i = imprintDict[imprintId];
+                ManufacturerLabel.Text = "Manufacturer: " + i.Manufacturer;
+                TypeLabel.Text = "Type: " + i.Type.ToString();
+                ImprintLabel.Text = "Imprint: " + i.imprint;
+                StrengthLabel.Text = "Strength: " + i.Strength + "mg";
+                ShapeLabel.Text = "Shape: " + i.Shape.ToString().ToLower();
+                ColorLabel.Text = "Color: " + i.Color;
+                DescriptionLabel.Text = "Description: " + i.Description;
+                pictureBox1.BackgroundImage = i.PillImage;
+            }
+        }
+
+        private void ImprintListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectImprint((String)ImprintListBox.Items[ImprintListBox.SelectedIndex]);
+        }
+        
+        private void FilterComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
         private void ImprintSearchTextBox_TextChanged(object sender, EventArgs e)
         {
             Dictionary<String, Imprint> searchResults = SearchPills(ImprintSearchTextBox.Text);
@@ -239,7 +173,13 @@ namespace Opiometrics
 
         private void ImprintSearchTextBox_Click(object sender, EventArgs e)
         {
-            ImprintSearchTextBox.Text = "";
+            ImprintSearchTextBox.Text = String.Empty;
+        }
+
+        private void FilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ImprintListBox.Items.Clear();
+            
         }
         #endregion
 
@@ -281,13 +221,13 @@ namespace Opiometrics
             }
 
         }
-
-        #endregion
-
         private void ConversionSourceTextbox_TextChanged(object sender, EventArgs e)
         {
             CalculateConversion();
         }
+
+        #endregion
+
 
 
     }
