@@ -5,13 +5,32 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Drawing;
-namespace Opiometrics
+namespace Opiology
 {
+    /// <summary>
+    /// Reads imprint data
+    /// </summary>
     public class ImprintReader
     {
 
-        public Dictionary<String, Imprint> imprintDictionary = new Dictionary<String, Imprint>();
-        public List<String> typeList = new List<String>();
+        private Dictionary<String, Imprint> imprintDictionary = new Dictionary<String, Imprint>();
+		public Dictionary<string, Imprint> ImprintDictionary
+		{
+			get { return this.imprintDictionary; }
+			set { this.imprintDictionary = value; }
+		}
+		
+        private List<String> typeList = new List<String>();
+		public List<string> TypeList
+		{
+			get { return this.typeList; }
+			set { this.typeList = value; }
+		}
+        
+        /// <summary>
+        /// Reads imprint information from an XML file and adds it to the imprintDictionary
+        /// </summary>
+        /// <param name="fileName">The XML file to parse</param>
         public void GetItemInfo(string fileName)
         {
             XmlDocument document = new XmlDocument();
@@ -47,7 +66,7 @@ namespace Opiometrics
                                     d.Manufacturer = value;
                                     break;
                                 case "imprint":
-                                        d.imprint = value.ToLower();
+                                        d.ImprintString = value.ToLower();
                                     break;
                                 case "strength":
                                     d.Strength = int.Parse(value);
@@ -77,7 +96,7 @@ namespace Opiometrics
                         }
                     }
                 }
-                String imagePath = Path.Combine(Path.Combine("Data", "imprints"), d.imprint + ".jpg");
+                String imagePath = Path.Combine(Path.Combine("Data", "imprints"), d.ImprintString + ".jpg");
                 if (File.Exists(imagePath))
                 {
                     d.PillImage = new Bitmap(imagePath);
@@ -87,7 +106,7 @@ namespace Opiometrics
                     d.PillImage = new Bitmap(Path.Combine(Path.Combine("Data", "imprints"), "default.jpg"));
                 }
 
-                imprintDictionary.Add(d.imprint, d);
+                imprintDictionary.Add(d.ImprintString, d);
 
                 if (!typeList.Contains(d.Type.ToString()))
                 {

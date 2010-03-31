@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-namespace Opiometrics
+namespace Opiology
 {
     //TODO: Conform code with FxCop and StyleCop standards
     public partial class Form1 : Form
@@ -17,7 +17,7 @@ namespace Opiometrics
         public List<String> consoleText = new List<string>();
         private List<String> topics = new List<String>();
         private Dictionary<String, Imprint> imprintDict = new Dictionary<String, Imprint>();
-        private Dictionary<String, Drug> drugDict = new Dictionary<string, Drug>();
+        private Dictionary<String, Substance> drugDict = new Dictionary<string, Substance>();
         OpioidConverter oConverter = new OpioidConverter();
         private OpioidConverter.Drug convertFrom = OpioidConverter.Drug.Morphine;
         private OpioidConverter.Drug convertTo = OpioidConverter.Drug.Morphine;
@@ -32,7 +32,11 @@ namespace Opiometrics
             List<String> ls = new List<string>()  { "Morphine", "Diacetylmorphine", "Oxycodone", "Hydromorphone", "Oxymorphone", "Fentanyl", "Hydrocodone", "Codeine", "Dihydrocodeine", "Tramadol", "Methadone", "Buprenorphine" } ;
             Initialize();
             topicsListBox.Items.AddRange(ls.ToArray());
+            Imprint i = new Imprint(PillType.Morphine);
 
+            i.ImprintString = "foobar";
+
+            imprintDict.Add(i.ImprintString, i);
         }
 
         private void Initialize()
@@ -46,13 +50,15 @@ namespace Opiometrics
             ConvertToComboBox.Items.AddRange(Enum.GetNames(typeof(OpioidConverter.Drug)));
             ConvertFromComboBox.SelectedIndex = 0;
             ConvertToComboBox.SelectedIndex = 0;
+
+            FilterComboBox.SelectedIndex = 0;  
         }
 
         #region DrugFacts
-        public void LoadItems(string filename)
+        public void LoadItems(string fileName)
         {
-            DataReader dataReader = new DataReader();
-            dataReader.GetItemInfo(filename);
+            SubstanceDataReader dataReader = new SubstanceDataReader();
+            dataReader.GetSubstanceInfo(fileName);
             drugDict = dataReader.DrugDictionary;
 
         }
@@ -60,7 +66,7 @@ namespace Opiometrics
         {
             if (drugDict.ContainsKey(drugname))
             {
-                Drug d = drugDict[drugname];
+                Substance d = drugDict[drugname];
                 NameLabel.Text = d.Name;
                 PopulateRoa(d.Name);
                 DescriptionTextBox.Text = d.Description;
@@ -68,8 +74,8 @@ namespace Opiometrics
                 DosageOralLabel.Text = "Naive Oral: " + d.NaiveOralDose.ToString() + "mg";
                 DosageIVLabel.Text = "Naive IV: " + d.NaiveIVDose.ToString() + "mg";
 
-                Bitmap b = new Bitmap(Path.Combine(Path.Combine(fileDirectory, moleculeDirectory), d.Name.ToLower() + "_molecule.png"));
-                drugPicture.BackgroundImage = b;
+                Bitmap moleculePicture = new Bitmap(Path.Combine(Path.Combine(fileDirectory, moleculeDirectory), d.Name.ToLower() + "_molecule.png"));
+                drugPicture.BackgroundImage = moleculePicture;
             }
         }
         private void PopulateRoa(String drugname)
@@ -96,39 +102,62 @@ namespace Opiometrics
 
 
         #region Pill Identification
-        //TODO: Use LINQ for imprint and imprint search filtering
-        public void LoadImprints(string filename)
+
+        public void LoadImprints(string fileName)
         {
             imprintReader = new ImprintReader();
-            imprintReader.GetItemInfo(filename);
-            imprintDict = imprintReader.imprintDictionary;
+            imprintReader.GetItemInfo(fileName);
+            imprintDict = imprintReader.ImprintDictionary;
 
         }
         public void PopulateTypeComboBox()
         {
-            FilterComboBox.Items.AddRange(imprintReader.typeList.ToArray());
+            FilterComboBox.Items.AddRange(imprintReader.TypeList.ToArray());
+            FilterComboBox.Items.Add("Morphine");
         }
 
         private Dictionary<String, Imprint> SearchPills(String searchstring)
         {
             String sanitizedString = searchstring.ToLower();
             Dictionary<String, Imprint> results = new Dictionary<String, Imprint>();
-            foreach (Imprint i in imprintDict.Values)
+            string filterValue = FilterComboBox.Items[FilterComboBox.SelectedIndex].ToString();
+            if (filterValue != string.Empty)
             {
-                String tags = i.Manufacturer.ToLower() + " " + i.imprint + " " + i.Description + " " + i.Color + " " + i.Type.ToString();
-                if (tags.Contains(sanitizedString))
+                foreach (Imprint i in imprintDict.Values)
                 {
-                    results.Add(i.imprint, i);
+                    if (i.Type.ToString() == filterValue)
+                    {
+                        if (!i.IsEmpty())
+                        {
+                            String tags = i.Manufacturer.ToLower() + " " + i.ImprintString + " " + i.Description + " " + i.Color + " " + i.Type.ToString();
+                            if (tags.Contains(sanitizedString))
+                            {
+                                results.Add(i.ImprintString, i);
+                            }
+                        }
+                    }
                 }
             }
-            if (results.Count > 0)
+            if(filterValue == string.Empty)
             {
-                return results;
+                foreach (Imprint i in imprintDict.Values)
+                {
+                        String tags = i.Manufacturer.ToLower() + " " + i.ImprintString + " " + i.Description + " " + i.Color + " " + i.Type.ToString();
+                        if (tags.Contains(sanitizedString))
+                        {
+                            results.Add(i.ImprintString, i);
+                        }
+                }
             }
-            else
-            {
-                return null;
-            }
+                if (results.Count > 0)
+                {
+                    return results;
+                }
+                else
+                {
+                    return null;
+                }
+
         }
 
         private void SelectImprint(String imprintId)
@@ -138,7 +167,7 @@ namespace Opiometrics
                 Imprint i = imprintDict[imprintId];
                 ManufacturerLabel.Text = "Manufacturer: " + i.Manufacturer;
                 TypeLabel.Text = "Type: " + i.Type.ToString();
-                ImprintLabel.Text = "Imprint: " + i.imprint;
+                ImprintLabel.Text = "Imprint: " + i.ImprintString;
                 StrengthLabel.Text = "Strength: " + i.Strength + "mg";
                 ShapeLabel.Text = "Shape: " + i.Shape.ToString().ToLower();
                 ColorLabel.Text = "Color: " + i.Color;
@@ -159,6 +188,7 @@ namespace Opiometrics
         private void ImprintSearchTextBox_TextChanged(object sender, EventArgs e)
         {
             Dictionary<String, Imprint> searchResults = SearchPills(ImprintSearchTextBox.Text);
+
             if (searchResults != null)
             {
                 ImprintListBox.Items.Clear();
@@ -176,10 +206,42 @@ namespace Opiometrics
             ImprintSearchTextBox.Text = String.Empty;
         }
 
+        //TODO: Get rid of this method of filtering by adding filter values to the SearchPills method.
         private void FilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ImprintListBox.Items.Clear();
-            
+            if (ImprintSearchTextBox.Text == string.Empty)
+            {
+                ImprintListBox.Items.Clear();
+                foreach (Imprint i in imprintDict.Values)
+                {
+                    if (!i.IsEmpty())
+                    {
+                        if (i.Type.ToString() == (string)FilterComboBox.Items[FilterComboBox.SelectedIndex])
+                        {
+                            ImprintListBox.Items.Add(i.ImprintString);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Dictionary<String, Imprint> searchResults = SearchPills(ImprintSearchTextBox.Text);
+                if (searchResults != null)
+                {
+                    ImprintListBox.Items.Clear();
+                    foreach (Imprint i in searchResults.Values)
+                    {
+                        if (!i.IsEmpty())
+                        {
+                            if (i.Type.ToString() == (string)FilterComboBox.Items[FilterComboBox.SelectedIndex])
+                            {
+                                ImprintListBox.Items.Add(i.ImprintString);
+                            }
+                        }
+                    }
+                }
+
+            }
         }
         #endregion
 

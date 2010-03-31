@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Opiometrics
+namespace Opiology
 {
     public enum Roa
     {
@@ -18,6 +18,7 @@ namespace Opiometrics
     }
     public enum PillType
     {
+        None,
         Codeine,
         Fentanyl,
         Hydrocodone,
@@ -28,6 +29,7 @@ namespace Opiometrics
     }
     public enum PillShape
     {
+        None,
         Capsule,
         Round,
         Oblong

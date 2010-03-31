@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Opiometrics
+namespace Opiology
 {
     static class Program
     {
@@ -15,7 +15,7 @@ namespace Opiometrics
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //if (Opiometrics.Properties.Settings.Default.TermsAgreed == false)
+            //if (Opiology.Properties.Settings.Default.TermsAgreed == false)
             //{
             //    Application.Run(new TermsForm());
             //}

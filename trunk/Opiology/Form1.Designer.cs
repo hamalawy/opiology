@@ -1,4 +1,4 @@
-﻿namespace Opiometrics
+﻿namespace Opiology
 {
     partial class Form1
     {
