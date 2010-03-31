@@ -32,11 +32,6 @@ namespace Opiology
             List<String> ls = new List<string>()  { "Morphine", "Diacetylmorphine", "Oxycodone", "Hydromorphone", "Oxymorphone", "Fentanyl", "Hydrocodone", "Codeine", "Dihydrocodeine", "Tramadol", "Methadone", "Buprenorphine" } ;
             Initialize();
             topicsListBox.Items.AddRange(ls.ToArray());
-            Imprint i = new Imprint(PillType.Morphine);
-
-            i.ImprintString = "foobar";
-
-            imprintDict.Add(i.ImprintString, i);
         }
 
         private void Initialize()
@@ -113,7 +108,6 @@ namespace Opiology
         public void PopulateTypeComboBox()
         {
             FilterComboBox.Items.AddRange(imprintReader.TypeList.ToArray());
-            FilterComboBox.Items.Add("Morphine");
         }
 
         private Dictionary<String, Imprint> SearchPills(String searchstring)
