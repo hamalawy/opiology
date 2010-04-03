@@ -13,11 +13,12 @@ namespace Opiology
             private string manufacturer;
             private PillType type;
             private string imprintString;
-            private int strength;
+            private double strength;
             private string color;
-            private PillShape shape;
+            private string shape;
             private bool scored = false;
             private string description;
+            private int apap;
             private Bitmap pillImage;
 
             #endregion
@@ -28,9 +29,9 @@ namespace Opiology
             /// Creates a new Imprint object with the given PillType
             /// </summary>
             /// <param name="type">The type of the pill</param>
-            public Imprint(PillType type)
+            public Imprint(string type)
             {
-                this.type = type;
+                this.type = (PillType)Enum.Parse(typeof(PillType), type);
             }
             #endregion
 
@@ -54,7 +55,7 @@ namespace Opiology
                 set { this.imprintString = value; }
             }
 
-            public int Strength
+            public double Strength
             {
                 get { return this.strength; }
                 set { this.strength = value; }
@@ -66,7 +67,7 @@ namespace Opiology
                 set { this.color = value; }
             }
 
-            public PillShape Shape
+            public string Shape
             {
                 get { return this.shape; }
                 set { this.shape = value; }
@@ -84,6 +85,12 @@ namespace Opiology
                 set { this.description = value; }
             }
 
+            public int Apap
+            {
+                get { return this.apap; }
+                set { this.apap = value; }
+            }
+
             public Bitmap PillImage
             {
                 get { return this.pillImage; }
@@ -94,9 +101,9 @@ namespace Opiology
             #region Methods
 
             /// <summary>
-            /// Check to see if an imprint contains the most important information
+            /// Check to see if an imprint is empty
             /// </summary>
-            /// <returns>True if the Imprint has no manufacturer, imprint, or strength. False otherwise.</returns>
+            /// <returns>True if the Imprint has no attributes.</returns>
             public bool IsEmpty()
             {
                 return (this.manufacturer == null
@@ -104,8 +111,8 @@ namespace Opiology
                     || this.strength == 0
                     || this.color == null
                     || this.description == null
-                    || this.shape == PillShape.None
-                    || this.type == PillType.None);
+                    || this.shape == null
+                    || this.type == null);
             }
 
             #endregion

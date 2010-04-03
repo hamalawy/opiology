@@ -21,8 +21,8 @@ namespace Opiology
             private string name;
             private List<Roa> routesOfAdministration = new List<Roa>();
             private int lethalDosage; // LD50 in milligrams
-            private int naiveOralDose;
-            private int naiveIVDose;
+            private double naiveOralDose;
+            private double naiveIVDose;
             private string description;
             
             /// <summary>
@@ -52,7 +52,7 @@ namespace Opiology
             /// <summary>
             /// The average oral dosage for an opioid-naive individual
             /// </summary>
-            public int NaiveOralDose
+            public double NaiveOralDose
             {
                 get { return this.naiveOralDose; }
                 set { this.naiveOralDose = value; }
@@ -60,7 +60,7 @@ namespace Opiology
             /// <summary>
             /// The average intravenous dosage for an opioid-naive individual
             /// </summary>
-            public int NaiveIVDose
+            public double NaiveIVDose
             {
                 get { return this.naiveIVDose; }
                 set { this.naiveIVDose = value; }

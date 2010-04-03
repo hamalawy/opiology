@@ -25,14 +25,7 @@ namespace Opiology
         Hydromorphone,
         Morphine,
         Oxycodone,
-        Oxymorphone
+        Oxymorphone,
+        Tramadol
     }
-    public enum PillShape
-    {
-        None,
-        Capsule,
-        Round,
-        Oblong
-    }
-
 }
