@@ -17,11 +17,6 @@ namespace Opiology
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //if (Opiology.Properties.Settings.Default.TermsAgreed == false)
-            //{
-            //    Application.Run(new TermsForm());
-            //}
-            //Application.Run(new Form1());
             Application.Run(new SplashScreen());
         }
     }
