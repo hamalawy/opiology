@@ -115,7 +115,6 @@ namespace Opiology
         }
         #endregion
 
-
         #region Pill Identification
 
         public void LoadImprints(string fileName)
@@ -145,8 +144,16 @@ namespace Opiology
                     {
                         if (!i.IsEmpty())
                         {
-                            String tags = i.Manufacturer.ToLower() + " " + i.ImprintString.ToLower() + " " + i.Description.ToLower() + " " + i.Color.ToLower() + " " + i.Type.ToString().ToLower() + i.Apap.ToString();
-                            if (tags.Contains(sanitizedString))
+                            String tags;
+                            if (i.OtherIngredient == null)
+                            {
+                                tags = i.Manufacturer.ToLower() + " " + i.ImprintString.ToLower() + " " + i.Description.ToLower() + " " + i.Color.ToLower() + " " + i.Type.ToString().ToLower() + " " + i.Apap.ToString();
+                            }
+                            else
+                            {
+                                tags = i.Manufacturer.ToLower() + " " + i.ImprintString.ToLower() + " " + i.Description.ToLower() + " " + i.Color.ToLower() + " " + i.Type.ToString().ToLower() + " " + i.Apap.ToString() + " " + i.OtherIngredient.ToLower() + " " + i.OtherIngredientStrength.ToString();
+                            }
+                                if (tags.Contains(sanitizedString))
                             {
                                 results.Add(i.Type.ToString() + " " + i.ImprintString, i);
                             }
@@ -161,7 +168,15 @@ namespace Opiology
                         {
                             if (i.Type.ToString() == filterValue)
                             {
-                                String tags = i.Manufacturer.ToLower() + " " + i.ImprintString.ToLower() + " " + i.Description.ToLower() + " " + i.Color.ToLower() + " " + i.Type.ToString().ToLower() + i.Apap.ToString();
+                                String tags;
+                                if (i.OtherIngredient == null)
+                                {
+                                    tags = i.Manufacturer.ToLower() + " " + i.ImprintString.ToLower() + " " + i.Description.ToLower() + " " + i.Color.ToLower() + " " + i.Type.ToString().ToLower() + " " + i.Apap.ToString();
+                                }
+                                else
+                                {
+                                    tags = i.Manufacturer.ToLower() + " " + i.ImprintString.ToLower() + " " + i.Description.ToLower() + " " + i.Color.ToLower() + " " + i.Type.ToString().ToLower() + " " + i.Apap.ToString() + " " + i.OtherIngredient.ToLower() + " " + i.OtherIngredientStrength.ToString();
+                                }
                                 if (tags.Contains(sanitizedString))
                                 {
                                     results.Add(i.Type.ToString() + " " + i.ImprintString, i);
@@ -188,6 +203,7 @@ namespace Opiology
         {
             if (imprintDict.ContainsKey(imprintId))
             {
+                string descriptionText;
                 Imprint i = imprintDict[imprintId];
                 ManufacturerLabel.Text = "Manufacturer: " + i.Manufacturer;
                 TypeLabel.Text = "Type: " + i.Type.ToString();
@@ -195,16 +211,29 @@ namespace Opiology
                 StrengthLabel.Text = "Strength: " + i.Strength + "mg";
                 ShapeLabel.Text = "Shape: " + i.Shape.ToString().ToLower();
                 ColorLabel.Text = "Color: " + i.Color;
-                APAPLabel.Text = "Acetaminophen: " + i.Apap;
+
                 if (i.Apap > 0)
                 {
+                    APAPLabel.Text = "Acetaminophen: " + i.Apap;
                     APAPLabel.ForeColor = Color.Red;
+                    APAPLabel.Visible = true;
                 }
                 else
                 {
+                    APAPLabel.Text = "Acetaminophen: " + i.Apap;
                     APAPLabel.ForeColor = Color.Black;
+                    APAPLabel.Visible = false;
                 }
-                PIDDescTextBox.Text = i.Description;
+                if (i.OtherIngredientStrength != 0)
+                {
+                    descriptionText = "Other Ingredient: " + i.OtherIngredientStrength + "mg of " + i.OtherIngredient +
+                        Environment.NewLine + i.Description;
+                }
+                else
+                {
+                    descriptionText = i.Description;
+                }
+                PIDDescTextBox.Text = descriptionText;
                 pictureBox1.BackgroundImage = i.PillImage;
             }
         }
@@ -356,16 +385,32 @@ namespace Opiology
 
         private void TextSizeIncButton_Click(object sender, EventArgs e)
         {
+            Font changedFont;
+            Font currentFont = DescriptionTextBox.Font;
             if (DescriptionTextBox.Font.SizeInPoints <= 12)
             {
+                changedFont = new Font(currentFont.FontFamily, currentFont.SizeInPoints + 1F, currentFont.Style);
+                DescriptionTextBox.Font = changedFont;
+            }
+        }
+
+        private void TextSizeDecButton_Click(object sender, EventArgs e)
+        {
+            Font changedFont;
+            Font currentFont = DescriptionTextBox.Font;
+            if (DescriptionTextBox.Font.SizeInPoints >= 9)
+            {
+                changedFont = new Font(currentFont.FontFamily, currentFont.SizeInPoints - 1F, currentFont.Style);
+                DescriptionTextBox.Font = changedFont;
             }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-      
         }
+
+
 
 
 

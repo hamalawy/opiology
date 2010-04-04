@@ -33,6 +33,8 @@
             this.topicsListBox = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalInfoTab = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TextSizeDecButton = new System.Windows.Forms.Button();
             this.TextSizeIncButton = new System.Windows.Forms.Button();
@@ -64,15 +66,18 @@
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.pillIdTab = new System.Windows.Forms.TabPage();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.PIDDescTextBox = new System.Windows.Forms.TextBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
-            this.ColorLabel = new System.Windows.Forms.Label();
             this.ShapeLabel = new System.Windows.Forms.Label();
-            this.StrengthLabel = new System.Windows.Forms.Label();
-            this.ImprintLabel = new System.Windows.Forms.Label();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.ManufacturerLabel = new System.Windows.Forms.Label();
+            this.StrengthLabel = new System.Windows.Forms.Label();
+            this.APAPLabel = new System.Windows.Forms.Label();
+            this.ImprintLabel = new System.Windows.Forms.Label();
+            this.ColorLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,13 +90,10 @@
             this.emergencyTab = new System.Windows.Forms.TabPage();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.PIDDescTextBox = new System.Windows.Forms.TextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.APAPLabel = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.generalInfoTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -99,11 +101,10 @@
             this.DosageGroupBox.SuspendLayout();
             this.ROAGroupBox.SuspendLayout();
             this.pillIdTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // topicsListBox
@@ -160,6 +161,31 @@
             this.generalInfoTab.Text = "General Info";
             this.generalInfoTab.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.Red;
+            this.textBox1.Location = new System.Drawing.Point(407, 249);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(234, 178);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.Text = "Warning: this is a beta version meant only to be tested.\r\n\r\n\r\nDO NOT, I repeat, D" +
+                "O NOT UNDER ANY CIRCUMSTANCE TAKE THESE CONVERSION VALUES TO BE TRUE.";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.InitialImage = null;
+            this.pictureBox2.Location = new System.Drawing.Point(651, 65);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(95, 390);
+            this.pictureBox2.TabIndex = 9;
+            this.pictureBox2.TabStop = false;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -179,6 +205,7 @@
             this.TextSizeDecButton.Text = "-";
             this.TextSizeDecButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.TextSizeDecButton.UseVisualStyleBackColor = true;
+            this.TextSizeDecButton.Click += new System.EventHandler(this.TextSizeDecButton_Click);
             // 
             // TextSizeIncButton
             // 
@@ -508,13 +535,24 @@
             this.pillIdTab.Text = "Pill ID";
             this.pillIdTab.UseVisualStyleBackColor = true;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Image = global::Opiology.Properties.Resources.sidebar;
+            this.pictureBox3.InitialImage = null;
+            this.pictureBox3.Location = new System.Drawing.Point(651, 65);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(95, 390);
+            this.pictureBox3.TabIndex = 10;
+            this.pictureBox3.TabStop = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlText;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(262, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(254, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(187, 166);
             this.pictureBox1.TabIndex = 4;
@@ -527,66 +565,47 @@
             this.groupBox1.Controls.Add(this.ShapeLabel);
             this.groupBox1.Controls.Add(this.TypeLabel);
             this.groupBox1.Controls.Add(this.ManufacturerLabel);
-            this.groupBox1.Controls.Add(this.ColorLabel);
             this.groupBox1.Controls.Add(this.StrengthLabel);
             this.groupBox1.Controls.Add(this.APAPLabel);
             this.groupBox1.Controls.Add(this.ImprintLabel);
+            this.groupBox1.Controls.Add(this.ColorLabel);
             this.groupBox1.Location = new System.Drawing.Point(233, 178);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(228, 242);
+            this.groupBox1.Size = new System.Drawing.Size(230, 264);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pill Info";
             // 
+            // PIDDescTextBox
+            // 
+            this.PIDDescTextBox.Location = new System.Drawing.Point(11, 144);
+            this.PIDDescTextBox.Multiline = true;
+            this.PIDDescTextBox.Name = "PIDDescTextBox";
+            this.PIDDescTextBox.Size = new System.Drawing.Size(206, 104);
+            this.PIDDescTextBox.TabIndex = 6;
+            // 
             // DescriptionLabel
             // 
             this.DescriptionLabel.AutoSize = true;
-            this.DescriptionLabel.Location = new System.Drawing.Point(8, 109);
+            this.DescriptionLabel.Location = new System.Drawing.Point(8, 126);
             this.DescriptionLabel.Name = "DescriptionLabel";
             this.DescriptionLabel.Size = new System.Drawing.Size(75, 15);
             this.DescriptionLabel.TabIndex = 5;
             this.DescriptionLabel.Text = "Description: ";
             // 
-            // ColorLabel
-            // 
-            this.ColorLabel.AutoSize = true;
-            this.ColorLabel.Location = new System.Drawing.Point(8, 70);
-            this.ColorLabel.Name = "ColorLabel";
-            this.ColorLabel.Size = new System.Drawing.Size(42, 15);
-            this.ColorLabel.TabIndex = 4;
-            this.ColorLabel.Text = "Color: ";
-            // 
             // ShapeLabel
             // 
             this.ShapeLabel.AutoSize = true;
-            this.ShapeLabel.Location = new System.Drawing.Point(8, 83);
+            this.ShapeLabel.Location = new System.Drawing.Point(8, 93);
             this.ShapeLabel.Name = "ShapeLabel";
             this.ShapeLabel.Size = new System.Drawing.Size(49, 15);
             this.ShapeLabel.TabIndex = 3;
             this.ShapeLabel.Text = "Shape: ";
             // 
-            // StrengthLabel
-            // 
-            this.StrengthLabel.AutoSize = true;
-            this.StrengthLabel.Location = new System.Drawing.Point(8, 44);
-            this.StrengthLabel.Name = "StrengthLabel";
-            this.StrengthLabel.Size = new System.Drawing.Size(59, 15);
-            this.StrengthLabel.TabIndex = 2;
-            this.StrengthLabel.Text = "Strength: ";
-            // 
-            // ImprintLabel
-            // 
-            this.ImprintLabel.AutoSize = true;
-            this.ImprintLabel.Location = new System.Drawing.Point(8, 57);
-            this.ImprintLabel.Name = "ImprintLabel";
-            this.ImprintLabel.Size = new System.Drawing.Size(51, 15);
-            this.ImprintLabel.TabIndex = 2;
-            this.ImprintLabel.Text = "Imprint: ";
-            // 
             // TypeLabel
             // 
             this.TypeLabel.AutoSize = true;
-            this.TypeLabel.Location = new System.Drawing.Point(8, 31);
+            this.TypeLabel.Location = new System.Drawing.Point(8, 33);
             this.TypeLabel.Name = "TypeLabel";
             this.TypeLabel.Size = new System.Drawing.Size(39, 15);
             this.TypeLabel.TabIndex = 1;
@@ -601,16 +620,53 @@
             this.ManufacturerLabel.TabIndex = 0;
             this.ManufacturerLabel.Text = "Manufacturer: ";
             // 
+            // StrengthLabel
+            // 
+            this.StrengthLabel.AutoSize = true;
+            this.StrengthLabel.Location = new System.Drawing.Point(8, 48);
+            this.StrengthLabel.Name = "StrengthLabel";
+            this.StrengthLabel.Size = new System.Drawing.Size(59, 15);
+            this.StrengthLabel.TabIndex = 2;
+            this.StrengthLabel.Text = "Strength: ";
+            // 
+            // APAPLabel
+            // 
+            this.APAPLabel.AutoSize = true;
+            this.APAPLabel.Location = new System.Drawing.Point(8, 108);
+            this.APAPLabel.Name = "APAPLabel";
+            this.APAPLabel.Size = new System.Drawing.Size(96, 15);
+            this.APAPLabel.TabIndex = 7;
+            this.APAPLabel.Text = "Acetaminophen:";
+            // 
+            // ImprintLabel
+            // 
+            this.ImprintLabel.AutoSize = true;
+            this.ImprintLabel.Location = new System.Drawing.Point(8, 63);
+            this.ImprintLabel.Name = "ImprintLabel";
+            this.ImprintLabel.Size = new System.Drawing.Size(51, 15);
+            this.ImprintLabel.TabIndex = 2;
+            this.ImprintLabel.Text = "Imprint: ";
+            // 
+            // ColorLabel
+            // 
+            this.ColorLabel.AutoSize = true;
+            this.ColorLabel.Location = new System.Drawing.Point(8, 78);
+            this.ColorLabel.Name = "ColorLabel";
+            this.ColorLabel.Size = new System.Drawing.Size(42, 15);
+            this.ColorLabel.TabIndex = 4;
+            this.ColorLabel.Text = "Color: ";
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.FilterComboBox);
             this.groupBox2.Controls.Add(this.ImprintSearchTextBox);
             this.groupBox2.Controls.Add(this.ImprintListBox);
-            this.groupBox2.Location = new System.Drawing.Point(18, 14);
+            this.groupBox2.Location = new System.Drawing.Point(18, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 406);
+            this.groupBox2.Size = new System.Drawing.Size(200, 434);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pill Search";
@@ -618,7 +674,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 92);
+            this.label2.Location = new System.Drawing.Point(14, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 15);
             this.label2.TabIndex = 8;
@@ -627,7 +683,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 48);
+            this.label1.Location = new System.Drawing.Point(14, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 15);
             this.label1.TabIndex = 7;
@@ -637,7 +693,7 @@
             // 
             this.FilterComboBox.DisplayMember = "dd";
             this.FilterComboBox.FormattingEnabled = true;
-            this.FilterComboBox.Location = new System.Drawing.Point(17, 66);
+            this.FilterComboBox.Location = new System.Drawing.Point(17, 77);
             this.FilterComboBox.Name = "FilterComboBox";
             this.FilterComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.FilterComboBox.Size = new System.Drawing.Size(165, 23);
@@ -647,11 +703,10 @@
             // 
             // ImprintSearchTextBox
             // 
-            this.ImprintSearchTextBox.Location = new System.Drawing.Point(17, 24);
+            this.ImprintSearchTextBox.Location = new System.Drawing.Point(17, 35);
             this.ImprintSearchTextBox.Name = "ImprintSearchTextBox";
             this.ImprintSearchTextBox.Size = new System.Drawing.Size(165, 21);
             this.ImprintSearchTextBox.TabIndex = 5;
-            this.ImprintSearchTextBox.Text = "Enter search term";
             this.ImprintSearchTextBox.TextChanged += new System.EventHandler(this.ImprintSearchTextBox_TextChanged);
             this.ImprintSearchTextBox.Click += new System.EventHandler(this.ImprintSearchTextBox_Click);
             // 
@@ -659,35 +714,35 @@
             // 
             this.ImprintListBox.FormattingEnabled = true;
             this.ImprintListBox.ItemHeight = 15;
-            this.ImprintListBox.Location = new System.Drawing.Point(17, 108);
+            this.ImprintListBox.Location = new System.Drawing.Point(17, 119);
             this.ImprintListBox.Name = "ImprintListBox";
-            this.ImprintListBox.Size = new System.Drawing.Size(165, 274);
+            this.ImprintListBox.Size = new System.Drawing.Size(165, 304);
             this.ImprintListBox.TabIndex = 2;
             this.ImprintListBox.SelectedIndexChanged += new System.EventHandler(this.ImprintListBox_SelectedIndexChanged);
             // 
             // prepTab
             // 
-            this.prepTab.Location = new System.Drawing.Point(4, 25);
+            this.prepTab.Location = new System.Drawing.Point(4, 24);
             this.prepTab.Name = "prepTab";
-            this.prepTab.Size = new System.Drawing.Size(575, 488);
+            this.prepTab.Size = new System.Drawing.Size(750, 460);
             this.prepTab.TabIndex = 5;
             this.prepTab.Text = "Prep. Methods";
             this.prepTab.UseVisualStyleBackColor = true;
             // 
             // clinicDirTab
             // 
-            this.clinicDirTab.Location = new System.Drawing.Point(4, 25);
+            this.clinicDirTab.Location = new System.Drawing.Point(4, 24);
             this.clinicDirTab.Name = "clinicDirTab";
-            this.clinicDirTab.Size = new System.Drawing.Size(575, 488);
+            this.clinicDirTab.Size = new System.Drawing.Size(750, 460);
             this.clinicDirTab.TabIndex = 2;
             this.clinicDirTab.Text = "Clinic Directories";
             this.clinicDirTab.UseVisualStyleBackColor = true;
             // 
             // chemistryTab
             // 
-            this.chemistryTab.Location = new System.Drawing.Point(4, 25);
+            this.chemistryTab.Location = new System.Drawing.Point(4, 24);
             this.chemistryTab.Name = "chemistryTab";
-            this.chemistryTab.Size = new System.Drawing.Size(575, 488);
+            this.chemistryTab.Size = new System.Drawing.Size(750, 460);
             this.chemistryTab.TabIndex = 3;
             this.chemistryTab.Text = "Chemistry";
             this.chemistryTab.UseVisualStyleBackColor = true;
@@ -695,9 +750,9 @@
             // emergencyTab
             // 
             this.emergencyTab.ForeColor = System.Drawing.Color.DarkRed;
-            this.emergencyTab.Location = new System.Drawing.Point(4, 25);
+            this.emergencyTab.Location = new System.Drawing.Point(4, 24);
             this.emergencyTab.Name = "emergencyTab";
-            this.emergencyTab.Size = new System.Drawing.Size(575, 488);
+            this.emergencyTab.Size = new System.Drawing.Size(750, 460);
             this.emergencyTab.TabIndex = 4;
             this.emergencyTab.Text = "Emergency";
             this.emergencyTab.UseVisualStyleBackColor = true;
@@ -713,58 +768,14 @@
             this.imageList1.Images.SetKeyName(4, "chemistryTab.png");
             this.imageList1.Images.SetKeyName(5, "emergencyTab.png");
             // 
-            // PIDDescTextBox
+            // label4
             // 
-            this.PIDDescTextBox.Location = new System.Drawing.Point(11, 127);
-            this.PIDDescTextBox.Multiline = true;
-            this.PIDDescTextBox.Name = "PIDDescTextBox";
-            this.PIDDescTextBox.Size = new System.Drawing.Size(206, 104);
-            this.PIDDescTextBox.TabIndex = 6;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(651, 65);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(95, 390);
-            this.pictureBox2.TabIndex = 9;
-            this.pictureBox2.TabStop = false;
-            // 
-            // APAPLabel
-            // 
-            this.APAPLabel.AutoSize = true;
-            this.APAPLabel.Location = new System.Drawing.Point(8, 96);
-            this.APAPLabel.Name = "APAPLabel";
-            this.APAPLabel.Size = new System.Drawing.Size(96, 15);
-            this.APAPLabel.TabIndex = 7;
-            this.APAPLabel.Text = "Acetaminophen:";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.InitialImage = null;
-            this.pictureBox3.Location = new System.Drawing.Point(651, 65);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(95, 390);
-            this.pictureBox3.TabIndex = 10;
-            this.pictureBox3.TabStop = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Red;
-            this.textBox1.Location = new System.Drawing.Point(407, 249);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(234, 178);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.Text = "Warning: this is a beta version meant only to be tested.\r\n\r\n\r\nDO NOT, I repeat, D" +
-                "O NOT UNDER ANY CIRCUMSTANCE TAKE THESE CONVERSION VALUES TO BE TRUE.";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(78, 15);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Search Term";
             // 
             // MainForm
             // 
@@ -781,6 +792,7 @@
             this.tabControl1.ResumeLayout(false);
             this.generalInfoTab.ResumeLayout(false);
             this.generalInfoTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -791,13 +803,12 @@
             this.ROAGroupBox.ResumeLayout(false);
             this.ROAGroupBox.PerformLayout();
             this.pillIdTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -864,6 +875,7 @@
         private System.Windows.Forms.Label APAPLabel;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
     }
 }
 

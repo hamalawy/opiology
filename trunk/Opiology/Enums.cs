@@ -19,11 +19,15 @@ namespace Opiology
     public enum PillType
     {
         None,
+        Buprenorphine,
         Codeine,
         Fentanyl,
         Hydrocodone,
         Hydromorphone,
+        Methadone,
         Morphine,
+        Naloxone,
+        Naltrexone,
         Oxycodone,
         Oxymorphone,
         Tramadol

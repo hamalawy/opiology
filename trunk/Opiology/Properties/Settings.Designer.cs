@@ -22,17 +22,5 @@ namespace Opiology.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool TermsAgreed {
-            get {
-                return ((bool)(this["TermsAgreed"]));
-            }
-            set {
-                this["TermsAgreed"] = value;
-            }
-        }
     }
 }

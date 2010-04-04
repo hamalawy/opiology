@@ -19,6 +19,8 @@ namespace Opiology
             private bool scored = false;
             private string description;
             private int apap;
+            private string otherIngredient;
+            private double otherIngredientStrength = 0;
             private Bitmap pillImage;
 
             #endregion
@@ -91,6 +93,17 @@ namespace Opiology
                 set { this.apap = value; }
             }
 
+            public string OtherIngredient
+            {
+                get { return this.otherIngredient; }
+                set { this.otherIngredient = value; }
+            }
+
+            public double OtherIngredientStrength
+            {
+                get { return this.otherIngredientStrength; }
+                set { this.otherIngredientStrength = value; }
+            }
             public Bitmap PillImage
             {
                 get { return this.pillImage; }

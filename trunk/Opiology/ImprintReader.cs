@@ -50,7 +50,9 @@ namespace Opiology
                             d.Type = (PillType)Enum.Parse(typeof(PillType), node.Attributes["type"].InnerText);
                             break;
                         case "manufacturer":
-                            d.Manufacturer = node.Attributes["manufacturer"].InnerText;
+                            d.Manufacturer = (node.Attributes["manufacturer"].InnerText.Contains("Pharmaceuticals"))
+                                ? node.Attributes["manufacturer"].InnerText.Replace("Pharmaceuticals", "")
+                                : d.Manufacturer = node.Attributes["manufacturer"].InnerText;
                             break;
                         case "imprint":
                             d.ImprintString = node.Attributes["imprint"].InnerText;
@@ -63,6 +65,12 @@ namespace Opiology
                             break;
                         case "shape":
                             d.Shape = node.Attributes["shape"].InnerText;
+                            break;
+                        case "otheringredient":
+                            d.OtherIngredient = node.Attributes["otheringredient"].InnerText;
+                            break;
+                        case "otheringredientstrength":
+                            d.OtherIngredientStrength = double.Parse(node.Attributes["otheringredientstrength"].InnerText);
                             break;
                         case "apap":
                             d.Apap = int.Parse(node.Attributes["apap"].InnerText);
@@ -77,7 +85,8 @@ namespace Opiology
 
                     }
                 }
-                String imagePath = Path.Combine(Path.Combine("Data", "imprints"), d.ImprintString.ToLower() + ".jpg");
+                string imgFileName = d.ImprintString.ToLower().Replace(" ", "-");
+                String imagePath = Path.Combine(Path.Combine(Path.Combine("Data", "imprints"), d.Type.ToString()), imgFileName + ".jpg");
                 if (File.Exists(imagePath))
                 {
                     d.PillImage = new Bitmap(imagePath);

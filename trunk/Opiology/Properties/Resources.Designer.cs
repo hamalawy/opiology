@@ -59,5 +59,19 @@ namespace Opiology.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap sidebar {
+            get {
+                object obj = ResourceManager.GetObject("sidebar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap splash {
+            get {
+                object obj = ResourceManager.GetObject("splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
